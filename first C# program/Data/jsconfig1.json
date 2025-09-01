@@ -1,0 +1,19 @@
+{
+  "People": [
+    {
+      "Id": 1,
+      "Salery": 1,
+      "Name": "John Doe"
+    },
+    {
+      "Id": 2,
+      "Salery": 2,
+      "Name": "Jane Doe"
+    },
+    {
+      "Id": 3,
+      "Salery": 3,
+      "Name": "Philip Doe"
+    }    
+  ]
+}

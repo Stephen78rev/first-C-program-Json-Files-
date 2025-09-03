@@ -10,8 +10,8 @@ using first_C__program;
 
 
 string jsonPath = Path.Combine("Data", "jsconfig1.json");
-string jsonString = File.ReadAllText(jsonPath);
-var manager = new JsonConfigManager(jsonPath);
+
+var manager = new CorporationManager(jsonPath);
 var configList = manager.Load();
 if (configList == null)
 {
@@ -19,51 +19,30 @@ if (configList == null)
     return;
 }
 
+CorporationManager.PrintList(configList);    // print file content
 
+// Make changes to configList (add/update people)
+var newPerson = new Person { Id = 4, Name = "Alice Johnson", Salary = 70000 };
+configList.People.Add(newPerson);
 
+// Update salary example
+var personToUpdate = configList.People.Find(p => p.Id == 2);
+if (personToUpdate != null)
+    personToUpdate.Salary += 5000;
 
-foreach (var person in configList.People)
-{
-    Console.WriteLine($"Read from JSON: Id = {person.Id}, Name = {person.Name}, Salery = {person.Salery}");
-}
-//  Update the salery of the person with Id = 2
-foreach (var person in configList.People)
-{
-    if (person.Id == 2)
-    {
-        person.Salery += 5000; // Increase salery by 5000 (!!!!!!write to file!!!!!!)
-        Console.WriteLine($"Updated: Id = {person.Id}, Name = {person.Name}, Salery = {person.Salery}");
-    }
-}
-foreach(var person in configList.People)
-{
-    Console.WriteLine($"Read from JSON: Id = {person.Id}, Name = {person.Name}, Salery = {person.Salery}");
-}
-
-
-
-foreach (var person in configList.People)
-{
-    Console.WriteLine($"Read from JSON: Id = {person.Id}, Name = {person.Name}, Salery = {person.Salery}");
-}
-// !!!!!Add a new person!!!!!
-// Make sure People list is initialized (enables adding new persons if the list was null)
-if (configList.People == null)
-    configList.People = new List<JsonConfig>();
-// Add a new person
-var newPerson = new JsonConfig { Id = 4, Name = "Alice Johnson", Salery = 70000 };
-manager.AddPerson(configList, newPerson);
-// After making changes to configList
-string updatedJson = JsonSerializer.Serialize(configList, new JsonSerializerOptions { WriteIndented = true });
-File.WriteAllText(jsonPath, updatedJson);
+// Save changes to file
 manager.Save(configList);
 
-
-foreach (var person in configList.People)
+var manager2 = new CorporationManager(jsonPath);
+var configList2 = manager2.Load();
+if (configList2 == null)
 {
-    Console.WriteLine($"Read from JSON: Id = {person.Id}, Name = {person.Name}, Salery = {person.Salery}");
+    Console.WriteLine("Failed to deserialize JSON.");
+    return;
 }
 
-Console.WriteLine("Press any key to continue...");
+CorporationManager.PrintList(configList2);    // print file content
+
+
 
 

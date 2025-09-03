@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="processJason.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Compile Update="CorporationManager.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="jsonConfig.cs">
+    <Compile Update="Corporation.cs">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
     <Compile Update="Program.cs">
